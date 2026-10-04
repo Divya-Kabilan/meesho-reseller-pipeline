@@ -9,8 +9,21 @@
   - `is_flagged(mom_pct, threshold)`: Threshold classifier.
   - `prompt_pack`: Template filler for drafting stakeholder alerts.
 - **Memory / State:** Holds previous month category revenues to perform delta evaluations on new incoming feeds.
-- **Planner:** Sequential workflow execution engine (Subtasks 1 through 8).
+- **Planner:** Sequential workflow execution engine with explicit subtasks 1 through 8.
 - **Feedback Loop:** Human-in-the-loop checkpoint (`drafted_and_held_for_approval`) ensuring no communication is auto-sent without explicit sign-off.
+
+---
+
+## 2. Planner — Ordered Subtasks
+
+1. Load the monthly revenue feed and validate the incoming current-month file with `validate_feed`.
+2. If validation fails, immediately return `action_taken = "hard_stop"` and surface each validation error.
+3. If validation passes, load the previous month and current month category revenue dictionaries.
+4. Compute `mom_growth(prev_rev, curr_rev)` for every category that exists in both periods.
+5. Classify each category using `is_flagged(mom_pct, threshold=8.0)`.
+6. Sort all `flagged` categories by absolute MoM percentage descending and keep only the top 3 for drafting.
+7. Draft messages for at most the top 3 categories, while storing the remaining flagged categories in `suppressed_categories`.
+8. Capture `escalate_exact_boundary` categories in `escalated_categories` and emit one structured JSON result object for the run.
 
 ---
 

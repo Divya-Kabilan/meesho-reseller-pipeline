@@ -39,8 +39,8 @@
 - **Justification:** This is a univariate comparison across a discrete temporal sequence (3 months). A simple column chart starting with a zero baseline allows leadership to absorb the peak in May within 10 seconds without needing a legend.
 
 ### Question 2: "What percentage share does Ethnic Wear represent of April's total revenue?" (INR 104,520.77 of INR 419,417.43 = 24.92%)
-- **Chart Choice:** 100% Stacked Bar / Proportional Donut Chart.
-- **Justification:** This represents a univariate part-to-whole relationship for a single point in time (April). A clear proportional chart clearly highlights the 24.92% share against the total sum without visual clutter.
+- **Chart Choice:** 100% stacked bar chart.
+- **Justification:** This represents a univariate part-to-whole relationship for a single point in time (April). A 100% stacked bar makes the 24.92% share immediately clear against the total sum without introducing an alternative chart type or visual ambiguity.
 
 ### Question 3: "How do the four regions compare on total revenue?" (North, South, East, West totals)
 - **Chart Choice:** Ranked Horizontal Bar Chart.

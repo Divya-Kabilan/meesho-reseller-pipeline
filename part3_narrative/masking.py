@@ -11,9 +11,9 @@ def fill_prompt_template(
     month: str,
 ) -> str:
   """Fill the Part 3 stakeholder alert template without inventing figures."""
-  pct_text = f"{mom_pct:g}"
+  pct_text = f"{mom_pct:.2f}"
   return (
-      f"ALERT [{month}]: {category} revenue moved by {pct_text}% MoM "
+      f"ALERT [{month}]: {category} revenue changed by {pct_text}% MoM "
       f"(from INR {previous_revenue:.2f} to INR {current_revenue:.2f}). "
       "Held for regional manager approval."
   )
