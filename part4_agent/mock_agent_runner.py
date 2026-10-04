@@ -64,12 +64,17 @@ def run(
     }
 
   prev_month = PREVIOUS_MONTH.get(month)
+  if prev_month is None:
+    raise ValueError(f"Unsupported month for comparison: {month}")
+
   prev_data = load_category_revenues(previous_month_csv, prev_month)
   curr_data = load_category_revenues(current_month_csv, month)
 
-  if not prev_data and not curr_data:
-    prev_data = load_category_revenues(previous_month_csv)
-    curr_data = load_category_revenues(current_month_csv)
+  if not prev_data:
+    raise ValueError(f"No data found for previous month: {prev_month}")
+
+  if not curr_data:
+    raise ValueError(f"No data found for current month: {month}")
 
   flagged = []
   suppressed = []
