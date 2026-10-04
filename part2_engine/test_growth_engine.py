@@ -1,11 +1,14 @@
 import sys
 import os
+import tempfile
 
 # Set sys.path before importing local modules
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 import unittest
 from growth_engine import mom_growth, is_flagged, validate_feed
+
+
 class TestGrowthEngine(unittest.TestCase):
 
   def setUp(self):
@@ -66,6 +69,21 @@ class TestGrowthEngine(unittest.TestCase):
     is_valid, errors = validate_feed(self.valid_csv)
     self.assertTrue(is_valid)
     self.assertEqual(errors, [])
+
+  def test_given_missing_n_orders_when_validated_then_rejected(self):
+    csv_text = """month,category,revenue,n_orders
+July,Ethnic Wear,98450.00,
+"""
+    with tempfile.NamedTemporaryFile("w", delete=False, newline="") as tmp:
+      tmp.write(csv_text)
+      tmp_path = tmp.name
+
+    try:
+      is_valid, errors = validate_feed(tmp_path)
+      self.assertFalse(is_valid)
+      self.assertEqual(errors, ["line 2: missing n_orders (category=Ethnic Wear)"])
+    finally:
+      os.unlink(tmp_path)
 
 
 if __name__ == "__main__":

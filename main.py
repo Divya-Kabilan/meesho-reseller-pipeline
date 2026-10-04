@@ -13,12 +13,12 @@ def run_step(description, command):
   print("=" * 70)
   result = subprocess.run(command, shell=True)
   if result.returncode != 0:
-    print(f"\n❌ Error encountered during: {description}")
+    print(f"\nERROR encountered during: {description}")
     sys.exit(result.returncode)
 
 
 def main():
-  print("🚀 STARTING MEESHO RESELLER PIPELINE END-TO-END EXECUTION")
+  print("STARTING MEESHO RESELLER PIPELINE END-TO-END EXECUTION")
 
   # 1. Dataset Generation
   run_step("Data Generation", "python data/generate_dataset.py")
@@ -45,7 +45,7 @@ def main():
       assert_no_raw_names_leak("Top reseller Mumbai Reseller 1", raw_names)
       is False
   )
-  print("✅ Part 3 Masking & PII Guardrails verified!")
+  print("Part 3 Masking & PII Guardrails verified!")
 
   # 5. Part 4 Agent Scenarios
   print("\n" + "=" * 70)
@@ -61,7 +61,7 @@ def main():
   assert corrupted_res["validation_status"] == "invalid"
   assert corrupted_res["action_taken"] == "hard_stop"
   assert len(corrupted_res["validation_errors"]) == 3
-  print("✅ Part 4 Hard Stop Scenario Verified!")
+  print("Part 4 Hard Stop Scenario Verified!")
 
   # May Scenario
   may_res = run_agent(
@@ -80,7 +80,7 @@ def main():
       "Home & Kitchen",
   }
   assert len(may_res["flagged_categories"]) == 3
-  print("✅ Part 4 May Scenario Verified!")
+  print("Part 4 May Scenario Verified!")
 
   # June Scenario
   june_res = run_agent(
@@ -99,10 +99,10 @@ def main():
       item["category"] for item in june_res["flagged_categories"]
   ]
   assert "Beauty & Personal Care" not in june_res["suppressed_categories"]
-  print("✅ Part 4 June Scenario Verified!")
+  print("Part 4 June Scenario Verified!")
 
   print("\n" + "=" * 70)
-  print("🎉 PIPELINE EXECUTION SUCCESSFUL! All parts verified and ready.")
+  print("PIPELINE EXECUTION SUCCESSFUL! All parts verified and ready.")
   print("=" * 70 + "\n")
 
 

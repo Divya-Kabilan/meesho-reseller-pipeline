@@ -12,7 +12,7 @@
 ### Narrative 2: June Ethnic Wear (-58.74% MoM Growth)
 - **Context:** Evaluating Month-on-Month revenue performance for the Ethnic Wear category across all regions for June 2026 compared to May 2026.
 - **Insight (Fact):** Ethnic Wear revenue declined from **INR 185,107.61** in May to **INR 76,371.53** in June 2026, representing a **-58.74%** drop and triggering a `flagged` status.
-- **Implication (Hypothesis):** This contraction represents seasonal post-festival demand normalization. Category managers should reallocate promotional ad spend toward surging categories like Home & Kitchen (+42.59%) to balance monthly platform GMV.
+- **Implication (Hypothesis):** This contraction may indicate seasonal demand normalization. Category managers should review promotional activity and inventory coverage before making further allocation decisions.
 
 ---
 

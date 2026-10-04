@@ -8,6 +8,7 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 )
 from part2_engine.growth_engine import is_flagged, mom_growth, validate_feed
+from part3_narrative.masking import fill_prompt_template
 
 MONTH_ORDER = ["April", "May", "June"]
 PREVIOUS_MONTH = {"May": "April", "June": "May", "July": "June"}
@@ -35,12 +36,12 @@ def load_category_revenues(
 def draft_message(
     category: str, mom_pct: float, prev_rev: float, curr_rev: float, month: str
 ) -> str:
-  direction = "increased" if mom_pct > 0 else "decreased"
-  abs_pct = abs(mom_pct)
-  return (
-      f"ALERT [{month}]: {category} revenue {direction} by {abs_pct:.2f}% MoM "
-      f"(from INR {prev_rev:.2f} to INR {curr_rev:.2f}). Held for regional"
-      " manager approval."
+  return fill_prompt_template(
+      category=category,
+      mom_pct=mom_pct,
+      previous_revenue=prev_rev,
+      current_revenue=curr_rev,
+      month=month,
   )
 
 

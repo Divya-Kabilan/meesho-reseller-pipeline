@@ -3,6 +3,22 @@ def alias_for(reseller_id: str) -> str:
   return f"ALIAS-{reseller_id[3:]}"
 
 
+def fill_prompt_template(
+    category: str,
+    mom_pct: float,
+    previous_revenue: float,
+    current_revenue: float,
+    month: str,
+) -> str:
+  """Fill the Part 3 stakeholder alert template without inventing figures."""
+  pct_text = f"{mom_pct:g}"
+  return (
+      f"ALERT [{month}]: {category} revenue moved by {pct_text}% MoM "
+      f"(from INR {previous_revenue:.2f} to INR {current_revenue:.2f}). "
+      "Held for regional manager approval."
+  )
+
+
 def assert_no_raw_names_leak(text: str, reseller_names: list[str]) -> bool:
   """Returns False if any raw reseller name appears verbatim in text."""
   for name in reseller_names:

@@ -29,8 +29,8 @@ def is_flagged(mom_pct: float, threshold: float = 8.0) -> str:
 def validate_feed(csv_path: str) -> Tuple[bool, List[str]]:
   """Validates a monthly category revenue CSV feed for structural and numeric integrity.
 
-  Checks for missing category, missing revenue, non-numeric revenue, and negative revenue.
-  Returns (True, []) if valid, or (False, error_messages) if invalid.
+  Checks for missing category, missing revenue, missing n_orders, non-numeric revenue,
+  and negative revenue. Returns (True, []) if valid, or (False, error_messages) if invalid.
   """
   errors = []
 
@@ -42,6 +42,7 @@ def validate_feed(csv_path: str) -> Tuple[bool, List[str]]:
       month = row.get("month", "").strip()
       category = row.get("category", "").strip()
       revenue_str = row.get("revenue", "").strip()
+      n_orders_str = row.get("n_orders", "").strip()
 
       # Rule 1: Check missing category
       if not category:
@@ -66,6 +67,25 @@ def validate_feed(csv_path: str) -> Tuple[bool, List[str]]:
       if revenue_val < 0:
         errors.append(
             f"line {line_num}: negative revenue ({revenue_val}) for"
+            f" category={category}"
+        )
+
+      # Rule 5: Check missing / invalid n_orders
+      if n_orders_str == "":
+        errors.append(f"line {line_num}: missing n_orders (category={category})")
+        continue
+
+      try:
+        n_orders_val = int(n_orders_str)
+      except ValueError:
+        errors.append(
+            f"line {line_num}: n_orders not numeric: {n_orders_str!r}"
+        )
+        continue
+
+      if n_orders_val < 0:
+        errors.append(
+            f"line {line_num}: negative n_orders ({n_orders_val}) for"
             f" category={category}"
         )
 
